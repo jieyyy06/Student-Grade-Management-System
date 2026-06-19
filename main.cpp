@@ -13,6 +13,18 @@ struct Student {
     int score;
 };
 
+// 新增的 Template Functions 
+template <class T>
+T getMax(T a, T b) {
+    return (a > b) ? a : b;
+}
+
+template <class T>
+T getMin(T a, T b) {
+    return (a < b) ? a : b;
+}
+
+
 void addStudent(vector<Student>& students);
 void listStudents(const vector<Student>& students);
 void sortByScore(vector<Student>& students);
@@ -32,7 +44,7 @@ int main() {
         cout << "4. Search by id " << endl;
         cout << "5. Show statistics " << endl;
         cout << "0. Exit " << endl;
-        cout << "請輸入選項 (0-5): ";
+        cout << "Please enter your options (0-5): ";
         
         if (!(cin >> choice)) {
             cout << "Error! Please enter a valid numeric option!" << endl;
@@ -169,8 +181,8 @@ void showStatistics(const vector<Student>& students) {
     for (const auto& s : students) {
         totalScore += s.score;
         
-        if (s.score > maxScore) maxScore = s.score;
-        if (s.score < minScore) minScore = s.score;
+        maxScore = getMax(maxScore, s.score);
+        minScore = getMin(minScore, s.score);
         
         if (s.score >= 60) {
             passCount++;
@@ -181,10 +193,10 @@ void showStatistics(const vector<Student>& students) {
 
     double average = static_cast<double>(totalScore) / students.size();
 
-    cout << "Total number of students in the class： " << students.size()  << endl;
-    cout << "Class average： " << fixed << setprecision(2) << average  << endl;
-    cout << "Highest score： " << maxScore  << endl;
-    cout << "minimum score： " << minScore  << endl;
-    cout << "Number of people who passed： " << passCount  << endl;
-    cout << "Number of students who failed：" << failCount  << endl;
+    cout << "Total number of students in the class: " << students.size()  << endl;
+    cout << "Class average: " << fixed << setprecision(2) << average  << endl;
+    cout << "Highest score: " << maxScore  << endl;
+    cout << "minimum score: " << minScore  << endl;
+    cout << "Number of people who passed: " << passCount  << endl;
+    cout << "Number of students who failed:" << failCount  << endl;
 }
